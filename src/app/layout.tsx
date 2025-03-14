@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -23,6 +24,7 @@ export default function RootLayout({
         className={`${jetbrainsMono.variable} font-[family-name:var(--font-jetbrains-mono)] antialiased`}
       >
         {children}
+        <Toaster richColors closeButton/>
       </body>
     </html>
   );

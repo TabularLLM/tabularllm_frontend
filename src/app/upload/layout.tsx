@@ -1,6 +1,6 @@
 import { cookies } from "next/headers"
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
@@ -10,9 +10,12 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar />
-      <main>
-        {children}
-      </main>
+      <SidebarInset>
+        <main className="h-full">
+          <div className="text-[#BEBEBE] text-[22px] font-bold w-full py-[15px] px-5">TabularLLM</div>
+          {children}
+        </main>  
+      </SidebarInset>
     </SidebarProvider>
   )
 }
