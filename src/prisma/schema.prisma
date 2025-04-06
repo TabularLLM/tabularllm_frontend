@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model analysis_insights {
+  id                   Int             @id(map: "PK_analysis_insights") @default(autoincrement())
+  file_id              String          @unique(map: "IX_file_id") @db.VarChar(50)
+  file_analysis        String          @db.VarChar(Max)
+  insight_name         String          @db.VarChar(255)
+  previous_response_id String?         @unique(map: "IX_previous_response_id") @db.VarChar(255)
+  created_at           DateTime        @db.DateTime
+  chat_messages        chat_messages[]
+}
+
+model chat_messages {
+  id                Int               @id(map: "PK_chat_messages") @default(autoincrement())
+  message           String            @db.VarChar(Max)
+  type              String            @db.VarChar(10)
+  insight_id        Int
+  created_at        DateTime          @db.DateTime
+  analysis_insights analysis_insights @relation(fields: [insight_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_chat_messages_analysis_insights")
+}

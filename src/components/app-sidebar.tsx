@@ -5,21 +5,31 @@ import {
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
+    SidebarGroupContent,
     SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarRail,
     SidebarSeparator,
 } from "@/components/ui/sidebar"
+
 import { useSidebar } from "@/components/ui/sidebar"
 
 import { MdLogout } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
+import Link from "next/link";
+import SidebarItemAction from "./SidebarItemAction"
 
-export function AppSidebar() {
-    const { toggleSidebar, open } = useSidebar()
+interface AppSidebarProps{
+    items: {
+        id: number,
+        insight_name: string
+    }[]
+}
+
+export function AppSidebar({ items } : AppSidebarProps) {
+    const { toggleSidebar } = useSidebar()
 
     return (
         <Sidebar collapsible="icon">
@@ -42,19 +52,28 @@ export function AppSidebar() {
                     <SidebarGroup>
                         <SidebarMenu>
                             <SidebarMenuItem className="cursor-pointer">
-                                <div className="flex w-full items-center gap-4 overflow-hidden rounded-md text-left pl-[7px] pr-2 text-sm outline-none mt-3">
+                                <Link href={`/upload`} className="flex w-full items-center gap-4 overflow-hidden rounded-md text-left pl-[7px] pr-2 text-sm outline-none mt-3 hover:bg-[#D9D9D9]/25">
                                     <div className="flex items-center justify-center h-[2rem] px-2 rounded-sm text-[#767676] bg-white border border-[#BEBEBE]">
                                         <FaPlus/>
                                     </div>
                                     <span className="font-bold text-[#767676] text-nowrap">
                                         Upload New Table
                                     </span>    
-                                </div>
+                                </Link>
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroup>
                     <SidebarGroup>
                         <SidebarGroupLabel>Analyzed Tables</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                            <SidebarMenu className="space-y-2">
+                                {items.map((item) => (
+                                    <SidebarMenuItem key={item.id}>
+                                        <SidebarItemAction id={item.id} insight_name={item.insight_name}/>   
+                                    </SidebarMenuItem>
+                                ))}
+                            </SidebarMenu>
+                        </SidebarGroupContent>
                     </SidebarGroup>
                 </SidebarContent>
             <SidebarFooter />
