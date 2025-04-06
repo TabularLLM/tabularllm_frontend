@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link";
 
 
 export default function LandingPage() {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen">
-      <div className="absolute top-[20px] left-[30px] text-[#BEBEBE] text-[22px] font-bold">
+      <div className="absolute top-[20px] left-[30px] text-[#BEBEBE] text-[20px] font-bold">
         TabularLLM
       </div>
 
